@@ -6,7 +6,14 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
+   @OneToOne
+   @MapsId
+   @JoinColumn(name = "car_id",
+           referencedColumnName = "id")
+   private Car car;
+
    @Id
+   @Column(name = "id")
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
@@ -57,5 +64,46 @@ public class User {
 
    public void setEmail(String email) {
       this.email = email;
+   }
+
+   public Car getCar() {
+      return car;
+   }
+   public void setCar(Car car) {
+      this.car = car;
+   }
+
+   @Override
+   public String toString() {
+      return "User{" +
+              "id=" + id +
+              ", firstName='" + firstName + '\'' +
+              ", lastName='" + lastName + '\'' +
+              ", email='" + email + '\'' +
+              '}';
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof User)) return false;
+
+      User user = (User) o;
+
+      if (!getCar().equals(user.getCar())) return false;
+      if (!getId().equals(user.getId())) return false;
+      if (!getFirstName().equals(user.getFirstName())) return false;
+      if (!getLastName().equals(user.getLastName())) return false;
+      return getEmail().equals(user.getEmail());
+   }
+
+   @Override
+   public int hashCode() {
+      int result = getCar().hashCode();
+      result = 31 * result + getId().hashCode();
+      result = 31 * result + getFirstName().hashCode();
+      result = 31 * result + getLastName().hashCode();
+      result = 31 * result + getEmail().hashCode();
+      return result;
    }
 }
