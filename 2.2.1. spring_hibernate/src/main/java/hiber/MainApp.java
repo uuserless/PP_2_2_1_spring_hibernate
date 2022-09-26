@@ -6,7 +6,6 @@ import hiber.model.User;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class MainApp {
@@ -35,12 +34,12 @@ public class MainApp {
       car3.setUser(user3);
       car4.setUser(user4);
 
-      userService.add(user1);
-      userService.add(user2);
-      userService.add(user3);
-      userService.add(user4);
+      userService.addUser(user1);
+      userService.addUser(user2);
+      userService.addUser(user3);
+      userService.addUser(user4);
 
-      List<User> users = userService.listUsers();
+      List<User> users = userService.getAllUsers();
       for (User user : users) {
          System.out.println(user.toString());
       }
